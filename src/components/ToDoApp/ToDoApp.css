@@ -1,0 +1,13 @@
+.add-btn {
+	cursor: pointer;
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+.label-ToDo {
+	font-size: 14px;
+}
+
+#new-todo {
+	margin-top: 5px;
+}
