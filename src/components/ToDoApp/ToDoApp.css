@@ -1,3 +1,17 @@
+form {
+	display: flex;
+	align-items: flex-end;
+}
+
+form label {
+	margin-right: 5px;
+}
+
+form input {
+	margin-right: 5px;
+}
+
+
 .add-btn {
 	cursor: pointer;
 	font-size: 14px;
@@ -6,8 +20,5 @@
 
 .label-ToDo {
 	font-size: 14px;
-}
-
-#new-todo {
 	margin-top: 5px;
 }
