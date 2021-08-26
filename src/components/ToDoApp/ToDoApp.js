@@ -4,10 +4,11 @@ import './ToDoApp.css'
 
 function ToDoApp() {
 
-	const [items, setItems] = useState([]);
+	let [items, setItems] = useState([]);
 	const [searchItems, setSearchItems] = useState(null);
 	const [text, setText] = useState('');
 	const [searchText, setSearchText] = useState('');
+	const [inputWarning, setInputWarning] = useState('');
 
 	const inputAddEl = useRef(null);
 	const inputSearchEl = useRef(null);
@@ -15,10 +16,11 @@ function ToDoApp() {
 	useEffect(() => {
 		fetch('https://jsonplaceholder.typicode.com/todos')
 			.then((response) => response.json())
-			.then((result) => setItems(result.slice(0, 10)))
+			.then((result) => setItems(result.slice(0, 10).sort((a, b) => a.title.length - b.title.length)))
 			.then((json) => console.log(json))
 	}, []
 	)
+	items = items.sort((a, b) => a.title.length - b.title.length);
 
 	const handleSubmitSearch = (e) => {
 		e.preventDefault();
@@ -62,7 +64,10 @@ function ToDoApp() {
 		let copyItems = items.slice();
 		if (text.length === 0 || copyItems.some(item => item.title.replace(/\s/g, '') === copyText)
 			|| (searchItems && searchItems.length !== 0)) {
-			console.log(copyItems)
+
+			return
+		} else if (text.length < 4) {
+			warningHidden()
 			return
 		} else {
 			const newItem = {
@@ -72,11 +77,17 @@ function ToDoApp() {
 			};
 			setItems(items.concat(newItem));
 			setText('');
+			setInputWarning('')
 		}
+	}
+
+	const warningHidden = () => {
+		return setInputWarning("Длина задачи должна быть не менее 4-х символов")
 	}
 
 
 	const changeTask = () => {
+
 		let renderItems = [];
 		if (searchItems === null) {
 			renderItems = items;
@@ -115,6 +126,7 @@ function ToDoApp() {
 	}
 
 	return (
+
 		<div>
 			<h3>Список дел</h3>
 			<form onSubmit={handleSubmitSearch}>
@@ -137,6 +149,8 @@ function ToDoApp() {
 			{changeTask()}
 
 			<form onSubmit={handleSubmit}>
+
+
 				<label className='label-ToDo' htmlFor='new-todo'>
 					Что нужно сделать?
 				</label>
@@ -146,11 +160,22 @@ function ToDoApp() {
 					onChange={handleChange}
 					value={text}
 				/>
+
 				<br />
 				<button className='add-btn'>
 					Добавить #{items.length + 1}
 				</button>
+				<br />
+
+
+
 			</form>
+			<div className='inputWarning'>
+
+				{inputWarning}
+
+			</div>
+
 		</div>
 	);
 }
