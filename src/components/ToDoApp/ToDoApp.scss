@@ -1,0 +1,24 @@
+form {
+	display: flex;
+	align-items: flex-end;
+
+	label {
+		margin-bottom: 5px;
+		font-size: 14px;
+	}
+
+	
+	.add-search-btn {
+		cursor: pointer;
+		font-size: 14px;
+		margin-top: 15px;
+	}
+
+	.add-search-input {
+		border-radius: 10px;
+		outline: none;
+		margin-top: 5px;
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+}
