@@ -16,28 +16,26 @@ function ToDoApp() {
 	useEffect(() => {
 		fetch('https://jsonplaceholder.typicode.com/todos')
 			.then((response) => response.json())
-			.then((result) => setItems(result.slice(0, 10).sort((a, b) => a.title.length - b.title.length)))
+			.then((result) => setItems(result.slice(0, 10)))
 			.then((json) => console.log(json))
 	}, []
 	)
-	items = items.sort((a, b) => a.title.length - b.title.length);
+
 
 	const handleSubmitSearch = (e) => {
 		e.preventDefault();
 		if (searchText === '') {
 			setSearchItems([])
-			console.log('setSearchItems');
+
 		} else {
 			const itemsCopy = [...items];
 			const searchItemsCopy = itemsCopy.filter(item => item.title.includes(searchText));
 			setSearchItems(searchItemsCopy);
-			console.log('handleSubmitSearch');
 		}
 	}
 
 	const handleChangeSearch = (e) => {
 		setSearchText(e.target.value);
-		console.log('handleChangeSearch');
 	}
 
 	const handleChange = (e) => {
@@ -62,12 +60,11 @@ function ToDoApp() {
 		e.preventDefault();
 		let copyText = text.replace(/\s/g, '');
 		let copyItems = items.slice();
-		if (text.length === 0 || copyItems.some(item => item.title.replace(/\s/g, '') === copyText)
-			|| (searchItems && searchItems.length !== 0)) {
-
+		if (copyItems.some(item => item.title.replace(/\s/g, '') === copyText)) {
+			warningHiddenUnique()
 			return
-		} else if (text.length < 4) {
-			warningHidden()
+		} else if ((text.length < 4) || (searchItems && searchItems.length !== 0) || (text.length === 0)) {
+			warningHiddenShort()
 			return
 		} else {
 			const newItem = {
@@ -81,9 +78,14 @@ function ToDoApp() {
 		}
 	}
 
-	const warningHidden = () => {
-		return setInputWarning("Длина задачи должна быть не менее 4-х символов")
+	const warningHiddenShort = () => {
+		return setInputWarning("Длина задачи должна быть не менее 4-х символов!")
 	}
+
+	const warningHiddenUnique = () => {
+		return setInputWarning("Внимание! Такая задача уже создана!")
+	}
+
 
 
 	const changeTask = () => {
@@ -125,9 +127,17 @@ function ToDoApp() {
 		);
 	}
 
+	const sortTop = () => {
+		let copyItemsSort = items.slice();
+		console.log(items);
+		setText('');
+		setItems(copyItemsSort.sort((a, b) => a.title.length - b.title.length));
+	}
+
 	return (
 
-		<div>
+
+		<div className='todo-wrapper'>
 			<h3>Список дел</h3>
 			<form onSubmit={handleSubmitSearch}>
 				<label className='label-ToDo' htmlFor='find-todo'>
@@ -145,12 +155,14 @@ function ToDoApp() {
 					Поиск
 				</button>
 			</form>
-
 			{changeTask()}
 
+			<button
+				onClick={() => sortTop()}>
+				Сортировать задачи по возрастанию
+			</button>
+
 			<form onSubmit={handleSubmit}>
-
-
 				<label className='label-ToDo' htmlFor='new-todo'>
 					Что нужно сделать?
 				</label>
@@ -160,22 +172,15 @@ function ToDoApp() {
 					onChange={handleChange}
 					value={text}
 				/>
-
 				<br />
 				<button className='add-btn'>
 					Добавить #{items.length + 1}
 				</button>
 				<br />
-
-
-
 			</form>
 			<div className='inputWarning'>
-
 				{inputWarning}
-
 			</div>
-
 		</div>
 	);
 }
