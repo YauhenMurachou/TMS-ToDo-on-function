@@ -19,7 +19,9 @@ function ToDoApp() {
 			.then((result) => setItems(result.slice(0, 10)))
 			.then((json) => console.log(json))
 	}, []
-	)
+	);
+
+
 
 
 	const handleSubmitSearch = (e) => {
