@@ -1,14 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+import { useDispatch, useSelector } from "react-redux";
+import { setNewItems, setSearchItems, setText, setSearchText, setInputWarning } from '../../redux/actions/toDoAppActions';
 import ToDoList from '../ToDoList/ToDoList';
 import './ToDoApp.css'
 
+
+export const Context = React.createContext();
+
 function ToDoApp() {
 
-	let [items, setItems] = useState([]);
-	const [searchItems, setSearchItems] = useState(null);
-	const [text, setText] = useState('');
-	const [searchText, setSearchText] = useState('');
-	const [inputWarning, setInputWarning] = useState('');
+
+	const dispatch = useDispatch();
+	const toDoAppState = useSelector(state => state.toDoAppReducer);
+	let { items, searchItems, text, searchText, inputWarning } = toDoAppState;
+
+	// let [items, setItems] = useState([]);
+	// const [searchItems, setSearchItems] = useState(null);
+	// const [text, setText] = useState('');
+	// const [searchText, setSearchText] = useState('');
+	// const [inputWarning, setInputWarning] = useState('');
 
 	const inputAddEl = useRef(null);
 	const inputSearchEl = useRef(null);
@@ -16,7 +27,7 @@ function ToDoApp() {
 	useEffect(() => {
 		fetch('https://jsonplaceholder.typicode.com/todos')
 			.then((response) => response.json())
-			.then((result) => setItems(result.slice(0, 10)))
+			.then((result) => dispatch(setNewItems(result.slice(0, 10))))
 			.then((json) => console.log(json))
 	}, []
 	)
@@ -25,35 +36,36 @@ function ToDoApp() {
 	const handleSubmitSearch = (e) => {
 		e.preventDefault();
 		if (searchText === '') {
-			setSearchItems([])
+			dispatch(setSearchItems([]))
 
 		} else {
 			const itemsCopy = [...items];
 			const searchItemsCopy = itemsCopy.filter(item => item.title.includes(searchText));
-			setSearchItems(searchItemsCopy);
+			dispatch(setSearchItems(searchItemsCopy));
 		}
 	}
 
 	const handleChangeSearch = (e) => {
-		setSearchText(e.target.value);
+		dispatch(setSearchText(e.target.value));
 	}
 
 	const handleChange = (e) => {
-		setText(e.target.value);
+		dispatch(setText(e.target.value));
 	}
 
 	const removeTask = (id) => {
+		console.log('why dont' )
 		let newItems = items.slice();
 		const delId = newItems.findIndex((n) => n.id === id);
 		newItems.splice(delId, 1);
-		setItems(newItems);
+		dispatch(setNewItems(newItems));
 	}
 
 	const handleCheckbox = (id) => {
 		let newItems = items.slice();
 		const delId = newItems.findIndex((n) => n.id === id);
 		newItems[delId].completed = !newItems[delId].completed;
-		setItems(newItems);
+		dispatch(setNewItems(newItems));
 	}
 
 	const handleSubmit = (e) => {
@@ -72,18 +84,18 @@ function ToDoApp() {
 				id: Date.now(),
 				completed: false
 			};
-			setItems(items.concat(newItem));
-			setText('');
-			setInputWarning('')
+			dispatch(setNewItems(items.concat(newItem)));
+			dispatch(setText(''));
+			dispatch(setInputWarning(''))
 		}
 	}
 
 	const warningHiddenShort = () => {
-		return setInputWarning("Длина задачи должна быть не менее 4-х символов!")
+		return dispatch(setInputWarning("Длина задачи должна быть не менее 4-х символов!"))
 	}
 
 	const warningHiddenUnique = () => {
-		return setInputWarning("Внимание! Такая задача уже создана!")
+		return dispatch(setInputWarning("Внимание! Такая задача уже создана!"))
 	}
 
 
@@ -129,9 +141,14 @@ function ToDoApp() {
 
 	const sortTop = () => {
 		let copyItemsSort = items.slice();
-		console.log(items);
-		setText('');
-		setItems(copyItemsSort.sort((a, b) => a.title.length - b.title.length));
+		dispatch(setText(''));
+		dispatch(setNewItems(copyItemsSort.sort((a, b) => a.title.length - b.title.length)));
+
+		if (items) {
+			console.log(copyItemsSort);
+		}
+
+
 	}
 
 	return (
@@ -139,6 +156,7 @@ function ToDoApp() {
 
 		<div className='todo-wrapper'>
 			<h3>Список дел</h3>
+			
 			<form onSubmit={handleSubmitSearch}>
 				<label className='label-ToDo' htmlFor='find-todo'>
 					Find task
@@ -155,10 +173,13 @@ function ToDoApp() {
 					Поиск
 				</button>
 			</form>
+			{/* {renderTasks(items)} */}
+
 			{changeTask()}
 
 			<button
-				onClick={() => sortTop()}>
+				onClick={() => sortTop()}
+				className='sort-btn'>
 				Сортировать задачи по возрастанию
 			</button>
 
