@@ -7,9 +7,12 @@ import {
 
 import './App.css';
 
-import Login from '../pages/Login/Login';
-import Registration from "../pages/Registration/Registration";
-import Tasks from "../pages/Tasks/Tasks";
+// import Login from '../pages/Login/Login';
+// import Registration from "../pages/Registration/Registration";
+// import Tasks from "../pages/Tasks/Tasks";
+
+import { Login, Registration, Tasks } from '../pages'
+
 import Navigation from "../components/navigation/Navigation";
 
 import ToDoApp from "../components/ToDoApp/ToDoApp";
