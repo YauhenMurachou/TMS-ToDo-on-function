@@ -1,24 +1,23 @@
 import React from "react";
-import {
-
-	Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import '../navigation/Navigation.css'
+
+import { Routes } from '../../utils/routes'
 
 const Navigation = () => {
 	return <div className='nav-container'>
 
 		<div>
-			<Link to='/'>Home</Link>
+			<Link to={Routes.HomeRoute}>Home</Link>
 		</div>
 		<div>
-			<Link to='/login'>
+			<Link to={Routes.SignInRoute}>
 				Login
 			</Link>
 		</div>
 		<div>
-			<Link to='/registration'>Registration</Link>
+			<Link to={Routes.SignUpRoute}>Registration</Link>
 		</div>
 		<div>
 			<Link to='/tasks'>Tasks</Link>

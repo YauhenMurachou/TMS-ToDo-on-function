@@ -7,27 +7,28 @@ import {
 
 import './App.css';
 
-import { Login, Registration, Tasks } from '../pages'
+import { SignIn, Registration, Tasks } from '../pages'
 import { Navigation, ToDoApp, ToDoList } from '../components';
+import { Routes } from '../utils/routes'
 
 
 class App extends React.Component {
 	render() {
 		return <Router>
 
-			<Route path="/">
+			<Route path={Routes.HomeRoute}>
 				<Navigation />
 			</Route>
 
-			<Route exact path="/login">
-				<Login />
+			<Route exact path={Routes.SignInRoute}>
+				<SignIn />
 			</Route>
 
-			<Route exact path="/registration">
+			<Route exact path={Routes.SignUpRoute}>
 				<Registration />
 			</Route>
 
-			<Route exact path="/tasks">
+			<Route exact path={Routes.TasksRoute}>
 				<Tasks />
 				<ToDoApp />
 			</Route>
