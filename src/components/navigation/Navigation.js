@@ -20,7 +20,10 @@ const Navigation = () => {
 			<Link to={Routes.SignUpRoute}>Registration</Link>
 		</div>
 		<div>
-			<Link to='/tasks'>Tasks</Link>
+			<Link to={Routes.TasksRoute}>Tasks</Link>
+		</div>
+		<div>
+			<Link to={Routes.UsersRoute}>Users</Link>
 		</div>
 	</div>
 }

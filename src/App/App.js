@@ -7,7 +7,7 @@ import {
 
 import './App.css';
 
-import { SignIn, Registration, Tasks } from '../pages'
+import { SignIn, Registration, Tasks, Users } from '../pages'
 import { Navigation, ToDoApp, ToDoList } from '../components';
 import { Routes } from '../utils/routes'
 
@@ -31,6 +31,10 @@ class App extends React.Component {
 			<Route exact path={Routes.TasksRoute}>
 				<Tasks />
 				<ToDoApp />
+			</Route>
+
+			<Route exact path={Routes.UsersRoute}>
+				<Users />
 			</Route>
 
 		</Router>
