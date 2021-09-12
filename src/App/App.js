@@ -1,44 +1,38 @@
-import React from "react";
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route
-} from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
 
 import './App.css';
 
-import { SignIn, Registration, Tasks, Users } from '../pages'
+import { Home, SignIn, Registration, Tasks, Users } from '../pages'
 import { Navigation, ToDoApp, ToDoList } from '../components';
-import { Routes } from '../utils/routes'
+import { Routes } from '../utils/routes';
+import { AuthorizedRoute, NotAuthorizedRoute } from '../components/routes';
 
 
-class App extends React.Component {
-	render() {
-		return <Router>
+const App = () => {
 
-			<Route path={Routes.HomeRoute}>
-				<Navigation />
+	const history = useHistory();
+
+	useEffect(() => {
+
+	}, []);
+
+	return (
+		<Router>
+			<Route exact path={Routes.HomeRoute}>
+				<Home />
 			</Route>
 
-			<Route exact path={Routes.SignInRoute}>
-				<SignIn />
-			</Route>
+			<NotAuthorizedRoute exact path={Routes.SignInRoute} component={SignIn} />
 
-			<Route exact path={Routes.SignUpRoute}>
-				<Registration />
-			</Route>
+			<NotAuthorizedRoute exact path={Routes.SignUpRoute} component={Registration} />
 
-			<Route exact path={Routes.TasksRoute}>
-				<Tasks />
-				<ToDoApp />
-			</Route>
+			<AuthorizedRoute exact path={Routes.TasksRoute} component={Tasks} />
 
-			<Route exact path={Routes.UsersRoute}>
-				<Users />
-			</Route>
-
+			<AuthorizedRoute exact path={Routes.UsersRoute} component={Users} />
 		</Router>
-	}
+	)
 }
+
 
 export default App;
