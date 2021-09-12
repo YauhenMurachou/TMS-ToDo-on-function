@@ -79,11 +79,11 @@ function ToDoApp() {
 	}
 
 	const warningHiddenShort = () => {
-		return setInputWarning("Длина задачи должна быть не менее 4-х символов!")
+		return setInputWarning('Длина задачи должна быть не менее 4-х символов!')
 	}
 
 	const warningHiddenUnique = () => {
-		return setInputWarning("Внимание! Такая задача уже создана!")
+		return setInputWarning('Внимание! Такая задача уже создана!')
 	}
 
 

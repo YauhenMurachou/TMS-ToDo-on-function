@@ -1,13 +1,13 @@
-import React from "react";
-import "./ToDoList.css";
+import React from 'react';
+import './ToDoList.css';
 
 function ToDoList({ item, onChange, onClick }) {
 
 	return (
-		<li className="li-task">
+		<li className='li-task'>
 			<label>
 				<input
-					type="checkbox"
+					type='checkbox'
 					checked={item.completed}
 					onChange={() => onChange()}
 				/>
@@ -15,7 +15,7 @@ function ToDoList({ item, onChange, onClick }) {
 			</label>
 
 			{item.checked && (
-				<button className="cancel-btn" onClick={() => onClick()}>
+				<button className='cancel-btn' onClick={() => onClick()}>
 					cancel
 				</button>
 			)}

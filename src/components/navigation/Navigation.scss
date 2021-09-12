@@ -1,0 +1,26 @@
+.navigation-container {
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
+  background-color: plum;
+  align-items: center;
+
+  .navigation-item-active, .navigation-item {
+    height: 100px;
+    font-size: 20px;
+    line-height: 100px;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .navigation-item-active, .navigation-item:hover {
+    cursor: pointer;
+    background-color: pink;
+    opacity: 0.8;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
