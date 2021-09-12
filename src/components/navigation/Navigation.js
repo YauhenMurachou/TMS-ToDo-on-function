@@ -21,7 +21,7 @@ const history = useHistory();
 			<Link to={Routes.SignUpRoute}>Registration</Link>
 		</div>
 		<div>
-			<Link to={Routes.TasksRoute}>Tasks</Link>
+			<Link to={Routes.TasksRoute}>Tasks </Link>
 		</div>
 		<div>
 			<Link to={Routes.UsersRoute}>Users</Link>

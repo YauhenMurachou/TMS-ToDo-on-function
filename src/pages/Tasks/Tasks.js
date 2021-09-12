@@ -1,9 +1,8 @@
 import React from "react";
+import { ToDoApp } from "../../components";
 
 const Tasks = () => {
-	return <h1>
-		
-	</h1>
+	return <ToDoApp/>
 }
 
 export default Tasks;
