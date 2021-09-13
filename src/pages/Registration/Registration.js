@@ -8,9 +8,11 @@ const Registration = () => {
 			<h1>
 				Page of registration
 			</h1>
-			<Link to={Routes.SignInRoute} >
-				<span>Назад</span>
-			</Link>
+			<button>
+				<Link to={Routes.SignInRoute} >
+					<span>Назад</span>
+				</Link>
+			</button>
 		</div>
 	)
 };

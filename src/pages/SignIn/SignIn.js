@@ -8,9 +8,11 @@ const SignIn = () => {
 			<h1>
 				Page of login
 			</h1>
-			<Link to={Routes.SignUpRoute} >
-				<span>Зарегистрироваться</span>
-			</Link>
+			<button>
+				<Link to={Routes.SignUpRoute} >
+					<span>Зарегистрироваться</span>
+				</Link>
+			</button>
 		</div>
 	)
 };
